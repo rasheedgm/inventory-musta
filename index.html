@@ -28,6 +28,7 @@
                                     <a class="btn btn-primary" ng-click="user.auth() && loginForm.$valid ">LOG IN</a>
                                 </div>
                                 </form>
+                            {{user.error.code}}
                         </div>
                         <div class="form " ng-show="user.authenticated">
                             <div class="col-sm-8">

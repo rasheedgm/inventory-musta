@@ -11,6 +11,7 @@ app.controller('appCtrl', ["$scope", "$firebaseObject","$firebaseAuth", function
            console.log("Logged in as:", authData.uid);
       }).catch(function(error) {
           console.error("Authentication failed:", error);
+            $scope.user.error=error;
       });
     }
     
