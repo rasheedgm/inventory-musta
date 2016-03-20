@@ -36,6 +36,9 @@ app.controller('appCtrl', ["$scope", "$firebaseObject","$firebaseAuth", function
             $scope.sales = salesObject;
             $scope.suppliers = suppObject;
             $scope.transactions = transObject;
+            
+            //$scope.reports.changeMonthPurchases();
+            //$scope.reports.changeMonthSales();
 
 
             console.log(authData.uid.email + " User " + authData.uid + " is logged in with " + authData.provider);
@@ -657,8 +660,7 @@ app.controller('reportsCtrl',["$scope", "$firebaseObject" ,function($scope,$fire
         });
     });
     }
-    $scope.reports.changeMonthSales();
-    $scope.reports.changeMonthPurchases();
+    
     
     //console.log(salesObject);
     //$scope.reports.monthIndex = $scope.months.indexOf($scope.reports.month)
