@@ -1,0 +1,117 @@
+<div class="row">
+    <div class="col-sm-2">
+        <ul ng-init="reportsTab=1" class="nav nav-pills nav-stacked nav-primary">  
+            <li ng-class="{active:reportsTab===1}"><a href="#" ng-click="reportsTab=1" >Sales</a></li>
+            <li ng-class="{active:reportsTab===2}"><a href="#" ng-click="reportsTab=2">Purchases</a></li>
+        </ul> 
+    </div>
+    <div class="col-sm-10">
+        <div class="panel panel-primary" ng-show="reportsTab===1">                          
+            <div class="panel-heading "><h4>Sales</h4>
+                <form role="form ">
+                    <div class="form-group form-inline">
+                        <label for="sel1">Month:</label>
+                         <select class="form-control" ng-model = "reports.month" ng-change="reports.changeMonthSales()">
+                             <option value="0">Jan</option>  
+                             <option value="1">Feb</option>  
+                             <option value="2">Mar</option>  
+                             <option value="3">Apr</option>  
+                             <option value="4">May</option>  
+                              <option value="5">Jun</option>  
+                              <option value="6">Jul</option>  
+                              <option value="7">Aug</option>  
+                              <option value="8">Sep</option>  
+                              <option value="9">Oct</option>  
+                              <option value="10">Nov</option>  
+                              <option value="11">Dec</option>  
+                            </select>
+                    </div>
+                </form>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Reciept No.</th>
+                        <th>Customer</th>
+                        <th>Discount</th>
+                        <th>Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr  ng-repeat="sale in reports.sales" >
+                        <td >{{sale.Date|date: 'dd-MMM-yyyy'}}</td>
+                        <td>{{sale.Id}}</td>
+                        <td>{{getCustomerName(sale.Customer)}}</td>
+                        <td>{{sale.Discount|currency:'&#8377;'}}</td>
+                        <td >{{sale.TotalAmount-sale.Discount|currency:'&#8377;'}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><h4>Total</h4></td>
+                        <td><h4>{{reports.salesTotalDiscount|currency:'&#8377;'}}</h4></td>
+                        <td><h4>{{reports.salesTotalAmount|currency:'&#8377;'}}</h4></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            </div>   
+        </div>
+        <div class="panel panel-primary" ng-show="reportsTab===2">                          
+            <div class="panel-heading "><h4>Purchases</h4>
+                <form role="form ">
+                    <div class="form-group form-inline">
+                        <label for="sel1">Month:</label>
+                         <select class="form-control" ng-model = "reports.month" ng-change="reports.changeMonthPurchases()">
+                             <option value="0">Jan</option>  
+                             <option value="1">Feb</option>  
+                             <option value="2">Mar</option>  
+                             <option value="3">Apr</option>  
+                             <option value="4">May</option>  
+                              <option value="5">Jun</option>  
+                              <option value="6">Jul</option>  
+                              <option value="7">Aug</option>  
+                              <option value="8">Sep</option>  
+                              <option value="9">Oct</option>  
+                              <option value="10">Nov</option>  
+                              <option value="11">Dec</option>  
+                            </select>
+                    </div>
+                </form>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Reciept No.</th>
+                        <th>Customer</th>
+                        <th>Discount</th>
+                        <th>Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr  ng-repeat="purchase in reports.purchases" >
+                        <td >{{purchase.Date|date: 'dd-MMM-yyyy'}}</td>
+                        <td>{{purchase.Id}}</td>
+                        <td>{{getSupplierName(purchase.Supplier)}}</td>
+                        <td>{{purchase.Discount|currency:'&#8377;'}}</td>
+                        <td >{{purchase.TotalAmount-purchase.Discount|currency:'&#8377;'}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><h4>Total</h4></td>
+                        <td><h4>{{reports.purchasesTotalDiscount|currency:'&#8377;'}}</h4></td>
+                        <td><h4>{{reports.purchasesTotalAmount|currency:'&#8377;'}}</h4></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            </div>   
+        </div>
+        
+    </div>
+</div>

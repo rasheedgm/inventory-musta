@@ -43,15 +43,33 @@
             </div>
             <div ng-show="user.authenticated">
             <div class="row" ng-init="tab=1">
-                <ul class="nav nav-pills">
-                    <li ng-class="{active:tab===1}"><a href ng-click="tab=1">Sales</a></li>
-                    <li ng-class="{active:tab===2}"><a href ng-click="tab=2" >Purchase</a></li>
-                    <li ng-class="{active:tab===3}"><a href ng-click="tab=3" >Products</a></li>
-                    <li ng-class="{active:tab===4}"><a href ng-click="tab=4" >Transaction</a></li>
-                    <li ng-class="{active:tab===5}"><a href ng-click="tab=5" >Customers</a></li>
-                    <li ng-class="{active:tab===6}"><a href ng-click="tab=6">Suppliers</a></li>
-                </ul>
-            </div>
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-nav" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div> 
+                    </div>
+                    <div class="collapse navbar-collapse" id="menu-nav" ng-init="tab=1">
+                        <ul class="nav navbar-nav">
+                            <li ng-class="{active:tab===1}"><a href ng-click="tab=1">Sales</a></li>
+                            <li ng-class="{active:tab===2}"><a href ng-click="tab=2" >Purchase</a></li>
+                            <li ng-class="{active:tab===3}"><a href ng-click="tab=3" >Products</a></li>
+                            <li ng-class="{active:tab===4}"><a href ng-click="tab=4" >Transaction</a></li>
+                            <li ng-class="{active:tab===5}"><a href ng-click="tab=5" >Customers</a></li>
+                            <li ng-class="{active:tab===6}"><a href ng-click="tab=6">Suppliers</a></li>
+                            <li ng-class="{active:tab===7}"><a href ng-click="tab=7">Reports</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div> 
+                
+
+                
             <div class="row">
                 <div class="panel"  id= "sales" ng-show="tab===1" ng-controller="salesCtrl">
                     <sales></sales>
@@ -70,7 +88,10 @@
                 </div>  
                 <div class="panel"  id= "suppliers" ng-show="tab===6" ng-controller="suppliersCtrl">
                     <suppliers></suppliers>
-                </div>        
+                </div>                 
+                <div class="panel"  id= "reports" ng-show="tab===7" ng-controller="reportsCtrl">
+                    <reports></reports>
+                </div>   
             </div>
             </div>
             <div class="panel panel-info">

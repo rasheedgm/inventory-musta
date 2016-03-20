@@ -44,9 +44,6 @@ app.controller('appCtrl', ["$scope", "$firebaseObject","$firebaseAuth", function
             console.log("User is logged out");
         }
     });  
-    
-    
-    
     $scope.total={};
     $scope.getTotal = function(criteria,itemsList){
         var total=0;
@@ -325,8 +322,6 @@ app.controller('salesCtrl', ["$scope", "$firebaseObject" ,function($scope, $http
         }
     }
 }]);
-
-
 app.controller('purchasesCtrl', ["$scope", "$firebaseObject" ,function($scope, $http){
     $scope.currentSupp={};
     $scope.currentItem={};
@@ -442,7 +437,6 @@ app.controller('purchasesCtrl', ["$scope", "$firebaseObject" ,function($scope, $
         }
     }
 }]);
-
 app.controller('productsCtrl', ["$scope", "$firebaseObject" , function($scope,$http){
     $scope.messageProdExist=false;
     $scope.newProduct={};
@@ -619,24 +613,59 @@ app.controller('transactionsCtrl',["$scope", "$firebaseObject" ,function($scope,
     }
     
 }]);
-
-/*app.controller("AuthCtrl", ["$scope", "$firebaseAuth",
-  function($scope, $firebaseAuth) {
-    var ref = new Firebase("https://dbstock.firebaseio.com/");
-    $scope.authObj = $firebaseAuth(ref);
-      $scope.authObj.$authWithPassword({
-          email: $scope.user.email,
-          password: $scope.user.password
-      }).then(function(authData) {
-          console.log("Logged in as:", authData.uid);
-      }).catch(function(error) {
-          console.error("Authentication failed:", error);
-      });
-      
-  }
-]);*/
-
-
+app.controller('reportsCtrl',["$scope", "$firebaseObject" ,function($scope,$firebaseObject){
+    $scope.reports={};    
+    var currentMonth = new Date().getMonth();
+    $scope.reports.month=currentMonth;
+    $scope.reports.changeMonthSales=function(){
+        $scope.reports.sales={}
+        $scope.reports.salesTotalAmount=0;
+        $scope.reports.salesTotalDiscount=0;
+        $scope.sales.$loaded().then(function(data){
+        data.forEach(function(s){
+            if (s.Id !=undefined){
+                var id=s.Id;                
+                var mnt =new Date(s.Date);
+                if (mnt.getMonth()==$scope.reports.month){
+                    $scope.reports.sales[id]=s;
+                    $scope.reports.salesTotalDiscount+=s.Discount;
+                    $scope.reports.salesTotalAmount+=s.TotalAmount-s.Discount;
+                }
+                
+            }
+            //.push(s);
+        });
+    });
+    }
+    $scope.reports.changeMonthPurchases=function(){
+        $scope.reports.purchases={}
+        $scope.reports.purchasesTotalAmount=0;
+        $scope.reports.purchasesTotalDiscount=0;
+        $scope.purchases.$loaded().then(function(data){
+        data.forEach(function(s){
+            if (s.Id !=undefined){
+                var id=s.Id;                
+                var mnt =new Date(s.Date);
+                if (mnt.getMonth()==$scope.reports.month){
+                    $scope.reports.purchases[id]=s;
+                    $scope.reports.purchasesTotalDiscount+=s.Discount;
+                    $scope.reports.purchasesTotalAmount+=s.TotalAmount-s.Discount;
+                }
+                
+            }
+            //.push(s);
+        });
+    });
+    }
+    $scope.reports.changeMonthSales();
+    $scope.reports.changeMonthPurchases();
+    
+    //console.log(salesObject);
+    //$scope.reports.monthIndex = $scope.months.indexOf($scope.reports.month)
+    //console.log($scope.sales);    
+    
+    
+}]);
 app.directive('sales',function(){
     return{
         restrict: 'E',
@@ -671,5 +700,11 @@ app.directive('transactions',function(){
     return{
         restrict: 'E',
         templateUrl: 'templates/transactions.html'
+    }
+});
+app.directive('reports',function(){
+    return{
+        restrict: 'E',
+        templateUrl: 'templates/reports.html'
     }
 });
